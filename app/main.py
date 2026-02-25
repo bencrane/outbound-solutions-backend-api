@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import tables
+from app.routers import carriers
 
 app = FastAPI(
     title="Outbound Solutions API",
-    description="API for accessing database tables",
+    description="FMCSA Carrier Data API",
     version="1.0.0"
 )
 
@@ -29,4 +29,4 @@ def root():
 
 
 # Include routers
-app.include_router(tables.router, prefix="/api", tags=["tables"])
+app.include_router(carriers.router, prefix="/api", tags=["carriers"])
