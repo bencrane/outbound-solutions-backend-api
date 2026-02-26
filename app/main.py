@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from app.routers import carriers
 
 app = FastAPI(
@@ -40,6 +41,15 @@ def health_check():
 @app.get("/")
 def root():
     return {"message": "Outbound Solutions API", "docs": "/docs"}
+
+
+# Global exception handler - return actual error details
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={"detail": f"Error: {str(exc)}"}
+    )
 
 
 # Include routers
