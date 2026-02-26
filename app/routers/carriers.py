@@ -117,7 +117,6 @@ def get_carrier(dot_number: str, db: Session = Depends(get_db)):
             SELECT *
             FROM fmcsa.insurance_history
             WHERE dot_number = :padded_dot
-            ORDER BY eff_date DESC
         """
         insurance_result = db.execute(text(insurance_query), {"padded_dot": padded_dot})
         insurance_history = [dict(row._mapping) for row in insurance_result]
