@@ -9,7 +9,7 @@ def get_database_url() -> str:
     # If separate components provided, use those (handles special chars)
     if settings.db_host and settings.db_user and settings.db_password:
         encoded_password = quote_plus(settings.db_password)
-        return f"postgresql://{settings.db_user}:{encoded_password}@{settings.db_host}:{settings.db_port}/{settings.db_name or 'postgres'}"
+        return f"postgresql://{settings.db_user}:{encoded_password}@{settings.db_host}:{settings.db_port}/{settings.db_name or 'postgres'}?sslmode=require"
 
     # Otherwise use DATABASE_URL directly
     if settings.database_url:
